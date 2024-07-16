@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { logo } from "../assets";
 import { FaChevronDown, FaSearch } from "react-icons/fa";
 import { useEffect, useRef, useState } from "react";
@@ -27,6 +27,7 @@ const Header = () => {
   const [searchText, setSearchText] = useState<string>("");
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const menuOpenRef = useRef<HTMLDivElement | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleClickOutSide = (e: MouseEvent) => {
@@ -34,7 +35,7 @@ const Header = () => {
         menuOpenRef.current &&
         !menuOpenRef.current.contains(e.target as Node)
       ) {
-        setMenuOpen(!menuOpen);
+        setMenuOpen(false);
       }
     };
     if (menuOpen) {
@@ -47,6 +48,12 @@ const Header = () => {
       document.removeEventListener("mousedown", handleClickOutSide);
     };
   }, [menuOpen]);
+
+  const handleMenuItemClick = (link: string) => {
+    console.log(`Navigating to ${link}`);
+    setMenuOpen(false);
+    navigate(link);
+  };
 
   return (
     <header className="relative grid">
@@ -179,7 +186,6 @@ const Header = () => {
           </div>
         </Container>
       </div>
-
       <Transition
         show={menuOpen}
         enter="transition ease-out duration-300"
@@ -189,13 +195,13 @@ const Header = () => {
         leaveFrom="transform translate-y-0 opacity-100"
         leaveTo="transform -translate-y-full opacity-0"
       >
-        <div className="sm:hidden bg-darkText text-whiteText pb-1">
-          <nav className="space-y-2">
+        <div className="md:hidden bg-darkText text-whiteText pb-1">
+          <nav className="">
             {bottomNavigation.map(({ title, link }) => (
               <Link
                 to={link}
                 key={title}
-                onClick={() => setMenuOpen(!menuOpen)}
+                onClick={() => handleMenuItemClick(link)}
                 className="uppercase flex flex-col text-sm font-semibold text-whiteText/90 hover:text-whiteText duration-200 relative overflow-hidden group bg-darkText items-center py-2"
               >
                 {title}
