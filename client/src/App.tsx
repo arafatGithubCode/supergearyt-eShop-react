@@ -5,6 +5,7 @@ import Highlights from "./ui/Highlights";
 import Categories from "./ui/Categories";
 import ProductList from "./ui/ProductList";
 import DiscountedBanner from "./ui/DiscountedBanner";
+import Blog from "./ui/Blog";
 
 function App() {
   return (
@@ -18,6 +19,8 @@ function App() {
         <ProductList />
         {/* discounted banner */}
         <DiscountedBanner />
+        {/* blog */}
+        <Blog />
       </main>
     </>
   );

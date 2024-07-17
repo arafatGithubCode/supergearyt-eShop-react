@@ -34,3 +34,11 @@ export interface IHighlights {
   _base: string;
   color: string;
 }
+
+export interface IBlogProps {
+  _id: number;
+  image: string;
+  title: string;
+  _base: string;
+  description: string;
+}
