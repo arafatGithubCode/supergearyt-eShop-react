@@ -24,3 +24,13 @@ export interface ICategoriesProps {
   _base: string;
   _id: number;
 }
+
+export interface IHighlights {
+  _id: number;
+  name: string;
+  title: string;
+  buttonTitle: string;
+  image: string;
+  _base: string;
+  color: string;
+}
