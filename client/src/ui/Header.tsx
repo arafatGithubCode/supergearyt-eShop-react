@@ -14,6 +14,11 @@ import {
   Transition,
 } from "@headlessui/react";
 
+import { config } from "../config";
+import { getData } from "../lib";
+import { IProductProps } from "../types";
+import ProductCard from "./ProductCard";
+
 const bottomNavigation = [
   { title: "Home", link: "/" },
   { title: "Shop", link: "/product" },
@@ -28,6 +33,45 @@ const Header = () => {
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const menuOpenRef = useRef<HTMLDivElement | null>(null);
   const navigate = useNavigate();
+
+  const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+
+  console.log("products", filteredProducts);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const endPoint = `${config?.baseUrl}/products`;
+      try {
+        const data = await getData(endPoint);
+        setProducts(data);
+      } catch (error) {
+        console.error("Error fetching products data", error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const endPoint = `${config?.baseUrl}/categories`;
+      try {
+        const data = await getData(endPoint);
+        setCategories(data);
+      } catch (error) {
+        console.error("Error fetching categories data", error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const filtered = products.filter((item: IProductProps) =>
+      item.name.toLowerCase().includes(searchText.toLowerCase())
+    );
+    setFilteredProducts(filtered);
+  }, [searchText, products]);
 
   useEffect(() => {
     const handleClickOutSide = (e: MouseEvent) => {
@@ -81,6 +125,30 @@ const Header = () => {
               <FaSearch className="absolute top-2 right-4 text-lg text-gray-300 hoverEffect hover:scale-105" />
             )}
           </div>
+          {/* Product search result */}
+          {searchText && (
+            <div className="absolute left-0 sm:top-36 top-24 w-full mx-auto max-h-[500px] px-10 py-5 bg-white z-20 overflow-y-scroll text-black shadow-lg shadow-skyText scrollbar-hide">
+              {filteredProducts && filteredProducts.length > 0 ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
+                  {products?.map((item: IProductProps) => (
+                    <ProductCard
+                      key={item?._id}
+                      item={item}
+                      setSearchText={setSearchText}
+                    />
+                  ))}
+                </div>
+              ) : (
+                <div className="py-10 bg-gray-50 w-full flex items-center justify-center border border-gray-600 rounded-md">
+                  <p className="text-xl font-normal">
+                    Nothing matches with your search keywords{" "}
+                    <span className="underline underline-offset-2 decoration-[1px] text-red-500 font-semibold">{`(${searchText})`}</span>
+                  </p>
+                  . Please try again
+                </div>
+              )}
+            </div>
+          )}
           {/* menu bar */}
           <div className="flex items-center gap-5">
             <FiUser className="text-2xl hover:text-teal-500 cursor-pointer hoverEffect hover:scale-105" />
