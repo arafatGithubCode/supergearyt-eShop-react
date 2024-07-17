@@ -1,7 +1,12 @@
+import "react-multi-carousel/lib/styles.css";
+import BannerCategories from "./ui/BannerCategories";
+
 function App() {
   return (
     <>
-      <main>app</main>
+      <main>
+        <BannerCategories />
+      </main>
     </>
   );
 }

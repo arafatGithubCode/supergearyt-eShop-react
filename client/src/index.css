@@ -7,3 +7,7 @@
     @apply duration-300 ease-in-out cursor-pointer;
   }
 }
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
