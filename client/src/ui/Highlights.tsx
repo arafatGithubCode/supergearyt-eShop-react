@@ -44,9 +44,10 @@ const Highlights = () => {
             </div>
             <Link
               to={item?._base}
-              className="text-base font-normal group-hover:animate-bounce group-hover:font-serif group-hover:text-blue-500 hoverEffect"
+              className="text-base font-normal group-hover:animate-bounce group-hover:font-serif group-hover:text-blue-500 w-fit hoverEffect relative overflow-hidden"
             >
               {item?.buttonTitle}
+              <span className="w-full h-[1px] bg-gray-500 absolute bottom-0 left-0 -translate-x-[100%] group-hover:translate-x-0 duration-500" />
             </Link>
           </div>
         </div>

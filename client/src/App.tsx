@@ -2,6 +2,7 @@ import "react-multi-carousel/lib/styles.css";
 import BannerCategories from "./ui/BannerCategories";
 import HomeBanner from "./ui/HomeBanner";
 import Highlights from "./ui/Highlights";
+import Categories from "./ui/Categories";
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
         <BannerCategories />
         <HomeBanner />
         <Highlights />
+        <Categories />
       </main>
     </>
   );
