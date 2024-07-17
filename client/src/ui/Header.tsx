@@ -21,7 +21,7 @@ import ProductCard from "./ProductCard";
 
 const bottomNavigation = [
   { title: "Home", link: "/" },
-  { title: "Shop", link: "/product" },
+  { title: "Shop", link: "/products" },
   { title: "Cart", link: "/cart" },
   { title: "Orders", link: "/orders" },
   { title: "My Account", link: "/profile" },
