@@ -18,6 +18,7 @@ export interface IProductProps {
 }
 
 export interface ICategoriesProps {
+  name: string;
   description: string;
   image: string;
   _base: string;

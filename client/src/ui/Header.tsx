@@ -16,7 +16,7 @@ import {
 
 import { config } from "../config";
 import { getData } from "../lib";
-import { IProductProps } from "../types";
+import { ICategoriesProps, IProductProps } from "../types";
 import ProductCard from "./ProductCard";
 
 const bottomNavigation = [
@@ -204,19 +204,21 @@ const Header = () => {
                 anchor="bottom end"
                 className="w-52 origin-top-right rounded-xl border border-white/5 bg-black p-1 text-sm/6 text-gray-300 [--anchor-gap:var(--spacing-1)] focus:outline-none hover:text-white z-50"
               >
-                <MenuItem>
-                  <Link
-                    to={`/category/`}
-                    className="flex w-full items-center gap-2 rounded-lg py-2 px-3 data-[focus]:bg-white/20 tracking-wide"
-                  >
-                    <img
-                      src={""}
-                      alt="categoryImage"
-                      className="w-6 h-6 rounded-md"
-                    />
-                    Phone
-                  </Link>
-                </MenuItem>
+                {categories.map((item: ICategoriesProps) => (
+                  <MenuItem key={item?._id}>
+                    <Link
+                      to={`/category/${item?._base}`}
+                      className="flex w-full items-center gap-2 rounded-lg py-2 px-3 data-[focus]:bg-white/20 tracking-wide"
+                    >
+                      <img
+                        src={item?.image}
+                        alt="categoryImage"
+                        className="w-6 h-6 rounded-md"
+                      />
+                      {item?.name}
+                    </Link>
+                  </MenuItem>
+                ))}
               </MenuItems>
             </Transition>
           </Menu>
