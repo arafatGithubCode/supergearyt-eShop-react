@@ -13,6 +13,7 @@ import {
 import FormattedPrice from "./FormattedPrice";
 import { FaStar } from "react-icons/fa";
 import AddToCardBtn from "./AddToCardBtn";
+import ProductCardSideNav from "./ProductCardSideNav";
 
 type TProps = {
   item: IProductProps;
@@ -56,6 +57,7 @@ const ProductCard = ({ item, setSearchText }: TProps) => {
           alt="productImage"
           className="w-full h-full rounded-md object-cover group-hover:scale-110 hoverEffect"
         />
+        <ProductCardSideNav product={item} />
       </div>
       <div className="flex flex-col gap-2 px-2 pb-2">
         <h3 className="text-xs uppercase font-semibold text-lightText">
