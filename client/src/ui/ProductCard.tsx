@@ -12,6 +12,7 @@ import {
 } from "@headlessui/react";
 import FormattedPrice from "./FormattedPrice";
 import { FaStar } from "react-icons/fa";
+import AddToCardBtn from "./AddToCardBtn";
 
 type TProps = {
   item: IProductProps;
@@ -68,7 +69,7 @@ const ProductCard = ({ item, setSearchText }: TProps) => {
           <MdOutlineStarOutline />
           <MdOutlineStarOutline />
         </div>
-        <p>Add to card</p>
+        <AddToCardBtn product={item} />
       </div>
       <Transition appear show={isOpen}>
         <Dialog

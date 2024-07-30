@@ -38,8 +38,6 @@ const Header = () => {
   const [categories, setCategories] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
 
-  console.log("products", filteredProducts);
-
   useEffect(() => {
     const fetchData = async () => {
       const endPoint = `${config?.baseUrl}/products`;
