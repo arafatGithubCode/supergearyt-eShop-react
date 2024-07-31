@@ -1,20 +1,111 @@
+import { useState, ChangeEvent, FormEvent } from "react";
 import { MdPhotoLibrary } from "react-icons/md";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth, db } from "../lib/firebase";
+import upload from "../lib/upload";
+import { doc, setDoc } from "firebase/firestore";
 import Label from "./Label";
-import { useState } from "react";
+
+interface Avatar {
+  file: File | null;
+  url: string;
+}
 
 const Registration = () => {
-  const [avatar, setAvatar] = useState({
+  const [login, setLogin] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [errMsg, setErrMsg] = useState("");
+  const [avatar, setAvatar] = useState<Avatar>({
     file: null,
     url: "",
   });
-  const [loading, setLoading] = useState(false);
-  const errMsg = false;
-  const login = false;
+
+  const handleAvatar = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setAvatar({
+        file: e.target.files[0],
+        url: URL.createObjectURL(e.target.files[0]),
+      });
+    }
+  };
+
+  const handleRegistration = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const firstName = formData.get("firstName") as string;
+    const lastName = formData.get("lastName") as string;
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+
+    if (!firstName) {
+      setErrMsg("First name is required.");
+      return;
+    }
+
+    if (!lastName) {
+      setErrMsg("Last name is required.");
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const res = await createUserWithEmailAndPassword(auth, email, password);
+      console.log(res);
+      let imageUrl: string | null = null;
+      if (avatar && avatar.file) {
+        imageUrl = await upload(avatar.file);
+      }
+      await setDoc(doc(db, "users", res.user.uid), {
+        firstName,
+        lastName,
+        email,
+        avatar: imageUrl,
+        id: res.user.uid,
+      });
+      setLogin(true);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      let errorMessage;
+      switch (error.code) {
+        case "auth/invalid-email":
+          errorMessage = "Please enter a valid email.";
+          break;
+        case "auth/missing-password":
+          errorMessage = "Please enter a password.";
+          break;
+        case "auth/email-already-in-use":
+          errorMessage = "This email is already in use. Try another email.";
+          break;
+        case "storage/unauthorized":
+          errorMessage =
+            "You are not authorized to perform the desired action.";
+          break;
+        case "storage/canceled":
+          errorMessage = "User canceled the upload.";
+          break;
+        case "storage/unknown":
+          errorMessage = "An unknown error occurred during image upload.";
+          break;
+        default:
+          errorMessage = "An error occurred. Please try again.";
+      }
+      console.log("Error", error);
+      setErrMsg(errorMessage);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div>
-      {login ? null : (
+      {login ? (
+        "login"
+      ) : (
         <div className="bg-gray-950 rounded-lg">
-          <form className="max-w-5xl mx-auto pt-10 px-10 lg:px-0 text-white">
+          <form
+            onSubmit={handleRegistration}
+            className="max-w-5xl mx-auto pt-10 px-10 lg:px-0 text-white"
+          >
             <div className="border-b border-b-white/10 pb-5">
               <h2 className="text-lg font-semibold uppercase leading-7">
                 Registration Form
@@ -65,9 +156,9 @@ const Registration = () => {
                       <div className="mt-2 flex justify-center rounded-lg border border-dashed border-white/25 px-6 py-4">
                         <div className="flex flex-col items-center text-center">
                           <div className="w-14 h-14 border border-gray-600 rounded-full p-1">
-                            {avatar?.url ? (
+                            {avatar.url ? (
                               <img
-                                src={avatar?.url}
+                                src={avatar.url}
                                 alt="userImage"
                                 className="w-full h-full rounded-full object-cover"
                               />
@@ -85,6 +176,7 @@ const Registration = () => {
                                 name="file-upload"
                                 id="file-upload"
                                 className="sr-only"
+                                onChange={handleAvatar}
                               />
                             </label>
                             <p className="pl-1">or drag and drop</p>
@@ -116,7 +208,10 @@ const Registration = () => {
           </form>
           <p className="text-sm leading-6 text-gray-400 text-center -mt-2 py-10">
             Already have an Account{" "}
-            <button className="text-gray-200 font-semibold underline underline-offset-2 decoration-[1px] hover:text-white duration-200">
+            <button
+              onClick={() => setLogin(true)}
+              className="text-gray-200 font-semibold underline underline-offset-2 decoration-[1px] hover:text-white duration-200"
+            >
               Login
             </button>
           </p>

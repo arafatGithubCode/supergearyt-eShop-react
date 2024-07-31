@@ -4,12 +4,12 @@ import { getStorage } from "firebase/storage";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAbJ6rlNc2w4QELJeKPG5oxGjPYscrwBUg",
-  authDomain: "supergearyt-eshop-react.firebaseapp.com",
-  projectId: "supergearyt-eshop-react",
-  storageBucket: "supergearyt-eshop-react.appspot.com",
-  messagingSenderId: "66651033140",
-  appId: "1:66651033140:web:33dfe0fbc0e23d884ac461",
+  apiKey: "AIzaSyAN-VfgGhdGv3SPsmzCcY8WcJLwGQdVHp4",
+  authDomain: "supergearreacteshop.firebaseapp.com",
+  projectId: "supergearreacteshop",
+  storageBucket: "supergearreacteshop.appspot.com",
+  messagingSenderId: "574283794804",
+  appId: "1:574283794804:web:65d88d618eb23ded3ec421",
 };
 
 // Initialize Firebase
