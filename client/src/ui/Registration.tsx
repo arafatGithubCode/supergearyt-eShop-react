@@ -5,6 +5,7 @@ import { auth, db } from "../lib/firebase";
 import upload from "../lib/upload";
 import { doc, setDoc } from "firebase/firestore";
 import Label from "./Label";
+import Login from "./Login";
 
 interface Avatar {
   file: File | null;
@@ -99,7 +100,7 @@ const Registration = () => {
   return (
     <div>
       {login ? (
-        "login"
+        <Login setLogin={setLogin} />
       ) : (
         <div className="bg-gray-950 rounded-lg">
           <form

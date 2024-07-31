@@ -75,6 +75,7 @@ const ProductCard = ({ item, setSearchText }: TProps) => {
         >
           {item?.images.reverse().map((url) => (
             <img
+              key={url}
               src={url}
               alt="product"
               onClick={handleProduct}
