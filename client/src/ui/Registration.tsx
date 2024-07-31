@@ -12,7 +12,7 @@ interface Avatar {
 }
 
 const Registration = () => {
-  const [login, setLogin] = useState(false);
+  const [login, setLogin] = useState(true);
   const [loading, setLoading] = useState(false);
   const [errMsg, setErrMsg] = useState("");
   const [avatar, setAvatar] = useState<Avatar>({
