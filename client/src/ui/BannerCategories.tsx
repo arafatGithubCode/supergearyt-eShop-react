@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { getData } from "../lib";
 import Carousel from "react-multi-carousel";
 import { Link } from "react-router-dom";
-import CustomRightArrow from "./CustomRightArrow";
-import CustomLeftArrow from "./CustomLeftArrow";
+import { CustomLeftArrow } from "./CustomLeftArrow";
 import { config } from "../config";
 import { ICategoriesProps } from "../types";
+import { CustomRightArrow } from "./CustomRightArrow";
 
 const responsive = {
   superLargeDesktop: {

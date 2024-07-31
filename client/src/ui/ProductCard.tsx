@@ -14,10 +14,32 @@ import FormattedPrice from "./FormattedPrice";
 import { FaStar } from "react-icons/fa";
 import AddToCardBtn from "./AddToCardBtn";
 import ProductCardSideNav from "./ProductCardSideNav";
+import Carousel from "react-multi-carousel";
+import { CustomRightCardArrow } from "./CustomRightArrow";
+import { CustomLeftCardArrow } from "./CustomLeftArrow";
 
 type TProps = {
   item: IProductProps;
   setSearchText?: (text: string) => void;
+};
+
+const responsive = {
+  superLargeDesktop: {
+    breakpoint: { max: 4000, min: 3000 },
+    items: 1,
+  },
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 1,
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 464 },
+    items: 1,
+  },
+  mobile: {
+    breakpoint: { max: 464, min: 0 },
+    items: 1,
+  },
 };
 
 const ProductCard = ({ item, setSearchText }: TProps) => {
@@ -33,6 +55,7 @@ const ProductCard = ({ item, setSearchText }: TProps) => {
   };
   const percentage =
     ((item?.regularPrice - item?.discountedPrice) / item?.regularPrice) * 100;
+
   const handleProduct = () => {
     navigate(`/product/${item?._id}`);
     setSearchText && setSearchText("");
@@ -51,12 +74,27 @@ const ProductCard = ({ item, setSearchText }: TProps) => {
             ? `click to see save amount`
             : `save ${percentage.toFixed(0)}%`}
         </span>
-        <img
-          onClick={handleProduct}
-          src={item?.images[0]}
-          alt="productImage"
-          className="w-full h-full rounded-md object-cover group-hover:scale-110 hoverEffect"
-        />
+
+        <Carousel
+          autoPlay
+          responsive={responsive}
+          autoPlaySpeed={2500}
+          centerMode={false}
+          infinite
+          shouldResetAutoplay
+          customRightArrow={<CustomRightCardArrow />}
+          customLeftArrow={<CustomLeftCardArrow />}
+        >
+          {item?.images.reverse().map((url) => (
+            <img
+              src={url}
+              alt="product"
+              onClick={handleProduct}
+              className="w-full h-full rounded-md object-cover group-hover:scale-110 duration-300"
+            />
+          ))}
+        </Carousel>
+
         <ProductCardSideNav product={item} />
       </div>
       <div className="flex flex-col gap-2 px-2 pb-2">
