@@ -4,12 +4,12 @@ import { getStorage } from "firebase/storage";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAN-VfgGhdGv3SPsmzCcY8WcJLwGQdVHp4",
-  authDomain: "supergearreacteshop.firebaseapp.com",
-  projectId: "supergearreacteshop",
-  storageBucket: "supergearreacteshop.appspot.com",
-  messagingSenderId: "574283794804",
-  appId: "1:574283794804:web:65d88d618eb23ded3ec421",
+  apiKey: import.meta.env.VITE_APP_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_APP_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_APP_FIREBASE_APP_ID,
 };
 
 // Initialize Firebase
