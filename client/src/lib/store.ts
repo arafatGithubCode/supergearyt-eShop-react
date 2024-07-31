@@ -19,7 +19,7 @@ interface IStore {
   // user
   currentUser: IUser | null;
   isLoading: boolean;
-  getUserInfo: (uid: undefined) => Promise<void>;
+  getUserInfo: (uid: string) => Promise<void>;
   //cart
   cartProduct: ICartProduct[];
   addToCart: (product: IProductProps) => Promise<void>;
@@ -54,7 +54,7 @@ export const store = create<IStore>()(
       cartProduct: [],
       favoriteProduct: [],
 
-      getUserInfo: async (uid: undefined) => {
+      getUserInfo: async (uid: string) => {
         if (typeof uid !== "string") throw new Error("uid must be provided");
 
         if (!uid) return set({ currentUser: null, isLoading: false });
