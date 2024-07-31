@@ -42,3 +42,13 @@ export interface IBlogProps {
   _base: string;
   description: string;
 }
+
+export interface IUser {
+  currentUser: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    avatar: string;
+    id: string;
+  };
+}
