@@ -45,7 +45,7 @@ const ProductCard = ({ item, setSearchText }: TProps) => {
     ((item?.regularPrice - item?.discountedPrice) / item?.regularPrice) * 100;
 
   const handleProduct = () => {
-    navigate(`/product/${item?._id}`);
+    navigate(`/products/${item?._id}`);
     setSearchText && setSearchText("");
   };
 
