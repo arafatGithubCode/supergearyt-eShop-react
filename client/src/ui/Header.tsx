@@ -18,6 +18,7 @@ import { config } from "../config";
 import { getData } from "../lib";
 import { ICategoriesProps, IProductProps } from "../types";
 import ProductCard from "./ProductCard";
+import { store } from "../lib/store";
 
 const bottomNavigation = [
   { title: "Home", link: "/" },
@@ -37,6 +38,8 @@ const Header = () => {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
+
+  const { currentUser, cartProduct, favoriteProduct } = store();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -106,7 +109,7 @@ const Header = () => {
             <img className="w-44" src={logo} alt="logo" />
           </Link>
           {/* search bar */}
-          <div className="my-3 relative hidden sm:block w-full max-w-2xl">
+          <div className="my-3 relative hidden sm:block w-full max-w-sm md:max-w-md lg:max-w-2xl">
             <input
               type="text"
               value={searchText}
@@ -149,20 +152,36 @@ const Header = () => {
           )}
           {/* menu bar */}
           <div className="flex items-center gap-5">
-            <FiUser className="text-2xl hover:text-teal-500 cursor-pointer hoverEffect hover:scale-105" />
+            <Link to={"/profile"}>
+              {currentUser ? (
+                <img
+                  src={currentUser?.avatar}
+                  alt="profileImg"
+                  className="w-10 h-10 rounded-full object-cover inline-block"
+                />
+              ) : (
+                <FiUser className="hover:text-skyText duration-200 cursor-pointer" />
+              )}
+            </Link>
 
-            <div className="relative hover:text-teal-500 cursor-pointer hoverEffect hover:scale-105">
+            <Link
+              to="/favorite"
+              className="relative hover:text-teal-500 cursor-pointer hoverEffect hover:scale-105"
+            >
               <FaRegStar className="text-xl" />
               <span className="rounded-full bg-red-500 text-whiteText px-1 text-xs absolute -top-2 left-3 font-semibold">
-                0
+                {favoriteProduct.length > 0 ? favoriteProduct.length : "0"}
               </span>
-            </div>
-            <div className="relative hover:text-teal-500 cursor-pointer hoverEffect hover:scale-105">
+            </Link>
+            <Link
+              to="/cart"
+              className="relative hover:text-teal-500 cursor-pointer hoverEffect hover:scale-105"
+            >
               <FiShoppingBag className="text-xl" />
               <span className="rounded-full bg-red-500 text-whiteText px-1 text-xs absolute -top-2 left-3 font-semibold">
-                0
+                {cartProduct.length > 0 ? cartProduct.length : "0"}
               </span>
-            </div>
+            </Link>
           </div>
         </div>
         {/* search bar */}
