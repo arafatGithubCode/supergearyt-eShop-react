@@ -118,7 +118,7 @@ const Cart = () => {
             iusto ratione natus. Maxime molestiae doloremque eaque nesciunt!
           </p>
           <Link
-            to={"/product"}
+            to={"/products"}
             className="bg-gray-800 text-gray-200 px-8 py-4 rounded-md hover:bg-black hover:text-white duration-200 uppercase text-sm font-semibold tracking-wide"
           >
             go to shopping

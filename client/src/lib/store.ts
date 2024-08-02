@@ -50,7 +50,7 @@ export const store = create<IStore>()(
   persist(
     (set) => ({
       currentUser: null,
-      isLoading: true,
+      isLoading: false,
       cartProduct: [],
       favoriteProduct: [],
 
