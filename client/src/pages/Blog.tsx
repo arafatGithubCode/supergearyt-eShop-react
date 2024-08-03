@@ -1,5 +1,6 @@
+import BlogComp from "../ui/Blog";
 const Blog = () => {
-  return <div>blog</div>;
+  return <BlogComp />;
 };
 
 export default Blog;
