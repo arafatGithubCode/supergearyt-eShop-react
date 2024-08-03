@@ -52,3 +52,10 @@ export interface IUser {
     id: string;
   };
 }
+
+export interface IOrderTypes {
+  orderItems: [IProductProps];
+  paymentId: string;
+  paymentMethod: string;
+  userEmail: string;
+}
