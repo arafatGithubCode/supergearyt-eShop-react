@@ -101,7 +101,7 @@ const Header = () => {
   };
 
   return (
-    <header className="grid sticky -top-[7.5rem] z-50 w-full bg-white/55 backdrop-blur-xl md:top-0">
+    <header className="grid sticky -top-2 z-50 w-full bg-white/70 backdrop-blur-xl">
       <div className="px-4 lg:px-10 xl:px-18 py-2">
         <div className="flex justify-between items-center gap-2 lg:gap-0">
           {/* logo */}
