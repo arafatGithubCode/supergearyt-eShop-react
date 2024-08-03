@@ -22,7 +22,13 @@ const CheckOutBtn = ({ products }: { products: IProductProps[] }) => {
       });
 
       const checkoutSession = await response?.json();
-      console.log("checkout", checkoutSession);
+      console.log(checkoutSession);
+      const result = await stripe?.redirectToCheckout({
+        sessionId: checkoutSession.id,
+      });
+      if (result?.error) {
+        window.alert(result?.error?.message);
+      }
     } catch (error) {
       console.log(error);
     }
