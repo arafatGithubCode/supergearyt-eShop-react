@@ -11,6 +11,9 @@ importers:
       '@headlessui/react':
         specifier: ^2.1.2
         version: 2.1.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@stripe/stripe-js':
+        specifier: ^4.1.0
+        version: 4.1.0
       firebase:
         specifier: ^10.12.3
         version: 10.12.3
@@ -803,6 +806,10 @@ packages:
     resolution: {integrity: sha512-yjk2MAkQmoaPYCSu35RLJ62+dz358nE83VfTePJRp8CG7aMg25mEJYpXFiD+NcevhX8LxD5OP5tktPXnXN7GDw==}
     cpu: [x64]
     os: [win32]
+
+  '@stripe/stripe-js@4.1.0':
+    resolution: {integrity: sha512-HhstGRUz/4JdbZpb26OcOf8Qb/cFR02arvHvgz4sPFLSnI6ZNHC53Jc6JP/FGNwxtrF719YyUnK0gGy4oyhucQ==}
+    engines: {node: '>=12.16'}
 
   '@swc/helpers@0.5.12':
     resolution: {integrity: sha512-KMZNXiGibsW9kvZAO1Pam2JPTDBm+KSHMMHWdsyI/1DbIZjT2A6Gy3hblVXUMEDvUAKq+e0vL0X0o54owWji7g==}
@@ -2754,6 +2761,8 @@ snapshots:
 
   '@rollup/rollup-win32-x64-msvc@4.18.1':
     optional: true
+
+  '@stripe/stripe-js@4.1.0': {}
 
   '@swc/helpers@0.5.12':
     dependencies:

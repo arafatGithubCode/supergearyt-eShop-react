@@ -1,11 +1,31 @@
+import { loadStripe } from "@stripe/stripe-js";
 import { store } from "../lib/store";
 import { IProductProps } from "../types";
+import { config } from "../config";
 
 const CheckOutBtn = ({ products }: { products: IProductProps[] }) => {
   const { currentUser } = store();
-  const handleCheckout = () => {
-    console.log(currentUser);
-    console.log(!currentUser);
+
+  const publishableKey = import.meta.env.VITE_APP_STRIPE_PUBLISHABLE_KEY;
+  const stripePromise = loadStripe(publishableKey);
+
+  const handleCheckout = async () => {
+    const stripe = await stripePromise;
+    try {
+      const response = await fetch(`${config?.baseUrl}/checkout`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          items: products,
+          email: currentUser?.email,
+        }),
+      });
+
+      const checkoutSession = await response?.json();
+      console.log("checkout", checkoutSession);
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div className="mt-6">
